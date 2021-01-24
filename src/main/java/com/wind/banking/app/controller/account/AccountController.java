@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wind.banking.app.controller.account.helpers.DTO.AccountDTO;
 import com.wind.banking.app.controller.account.helpers.form.AccountForm;
 import com.wind.banking.app.controller.helpers.validators.UserValidator;
 import com.wind.banking.app.models.entity.User;
@@ -23,15 +25,25 @@ import com.wind.banking.config.security.token.TokenService;
 @RestController
 @RequestMapping("/account")
 public class AccountController {
-	
+
 	@Autowired
 	private TokenService tokenService;
-	
+
 	@Autowired
 	private UserValidator userValidator;
-	
-	@Autowired 
+
+	@Autowired
 	private UserRepository userRepository;
+
+	@GetMapping("/info")
+	public ResponseEntity<AccountDTO> GetAccount(@RequestHeader("Authorization") String token) {
+		String username = tokenService.getUsername(token);
+		User requestedUser = userRepository.getOne(username);
+		if(userValidator.userHasAccount(requestedUser)) {
+			return ResponseEntity.ok(new AccountDTO(requestedUser.getAccount()));
+		}
+		return ResponseEntity.status(404).build();
+	}
 
 	@PostMapping("/create")
 	@Transactional
@@ -42,7 +54,7 @@ public class AccountController {
 			Account newAccount = accountForm.CreateAccount();
 			List<Endereco> enderecos = accountForm.CreateEnderecos();
 			List<Telefone> telefones = accountForm.CreateTelefones();
-			requestedUser.setAccount(newAccount);;
+			requestedUser.setAccount(newAccount);
 			requestedUser.getAccount().getCustomer().setEnderecos(enderecos);
 			requestedUser.getAccount().getCustomer().setTelefones(telefones);
 			userRepository.save(requestedUser);

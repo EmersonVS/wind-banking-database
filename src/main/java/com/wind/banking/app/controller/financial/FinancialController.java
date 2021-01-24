@@ -7,12 +7,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wind.banking.app.controller.financial.helpers.DTO.FinancialDTO;
 import com.wind.banking.app.controller.financial.helpers.form.RedeemForm;
 import com.wind.banking.app.controller.financial.helpers.form.SaveForm;
 import com.wind.banking.app.controller.financial.helpers.form.TransferForm;
@@ -38,7 +40,17 @@ public class FinancialController {
 	private UserRepository userRepository;
 
 	@Autowired
-	AccountRepository accountRepository;
+	private AccountRepository accountRepository;
+	
+	@GetMapping("/info")
+	public ResponseEntity<FinancialDTO> GetBalance(@RequestHeader("Authorization") String token ) {
+		String username = tokenService.getUsername(token);
+		User requestedUser = userRepository.getOne(username);
+		if (userValidator.userHasAccount(requestedUser)) {
+			return ResponseEntity.ok(new FinancialDTO(requestedUser.getAccount()));
+		}
+		return ResponseEntity.status(404).build();
+	}
 
 	@PostMapping("/transfer")
 	@Transactional

@@ -21,6 +21,16 @@ public class UserValidator {
 		}
 		return false;
 	}
+	
+	public boolean userHasAccount(User requestedUser) {
+		Optional<User> databaseUser = userRepository.findById(requestedUser.getUsername());
+		if (databaseUser.isPresent()) {
+			if (databaseUser.get().getAccount() == null) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public boolean userHasntAccount(User requestedUser) {
 		Optional<User> databaseUser = userRepository.findById(requestedUser.getUsername());
