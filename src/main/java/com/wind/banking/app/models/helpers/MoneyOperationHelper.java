@@ -8,7 +8,10 @@ import com.wind.banking.app.models.entity.account.financial.FinancialError;
 
 public class MoneyOperationHelper {
 	
-	public List<Account> TransferMoneyBetweenAccounts(Account origin, Account destiny, Double value) throws TransferError {
+	public static List<Account> TransferMoneyBetweenAccounts(Account origin, Account destiny, Double value) throws TransferError {
+		if(value <= 0) {
+			throw new TransferError("Value must be positive");
+		}
 		List<Account> accountList = new ArrayList<Account>();
 		try {
 			origin.WithdrawCC(value);
@@ -21,7 +24,10 @@ public class MoneyOperationHelper {
 		}
 	}
 	
-	public Account TransferMoneyBetweenBalances(Account account, String typeOrigin, Double value) throws TransferError {
+	public static Account TransferMoneyBetweenBalances(Account account, String typeOrigin, Double value) throws TransferError {
+		if(value <= 0) {
+			throw new TransferError("Value must be positive");
+		}
 		try {
 			switch (typeOrigin) {
 			case "Conta corrente":

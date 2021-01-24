@@ -15,7 +15,7 @@ import com.wind.banking.app.models.entity.account.customer.Endereco;
 import com.wind.banking.app.models.entity.account.customer.Telefone;
 
 @SpringBootTest
-public class CustomerTest {
+public class CustomerTests {
 	
 	private Customer customer1 = new Customer("cpf", "rg", "nome");
 	

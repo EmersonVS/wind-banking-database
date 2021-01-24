@@ -11,7 +11,7 @@ import com.wind.banking.app.models.entity.account.customer.Endereco;
 
 @SpringBootTest
 
-public class EnderecoTest {
+public class EnderecoTests {
 
 	private Endereco endereco1 = new Endereco("rua", "numero", "bairro", "cidade", "estado", "cep");
 	

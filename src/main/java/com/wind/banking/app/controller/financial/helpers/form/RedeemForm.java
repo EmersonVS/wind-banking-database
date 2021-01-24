@@ -12,9 +12,8 @@ public class RedeemForm {
 	public Double value;
 
 	public Account RedeemMoney(Account account) throws TransferError {
-		MoneyOperationHelper moneyHelper = new MoneyOperationHelper();
 		try {
-			return moneyHelper.TransferMoneyBetweenBalances(account, "Conta poupança", value);
+			return MoneyOperationHelper.TransferMoneyBetweenBalances(account, "Conta poupança", value);
 		} catch (TransferError error) {
 			error.printStackTrace();
 			throw error;

@@ -16,9 +16,8 @@ public class TransferForm {
 	public Double value;
 	
 	public List<Account> TransferMoney(Account originAccount, Account destinyAccount) throws TransferError {
-		MoneyOperationHelper moneyHelper = new MoneyOperationHelper();
 		try {
-			return moneyHelper.TransferMoneyBetweenAccounts(originAccount, destinyAccount, this.value);
+			return MoneyOperationHelper.TransferMoneyBetweenAccounts(originAccount, destinyAccount, this.value);
 		} catch (TransferError error) {
 			error.printStackTrace();
 			throw error;

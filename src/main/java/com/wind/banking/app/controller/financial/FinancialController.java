@@ -77,7 +77,8 @@ public class FinancialController {
 		User requestedUser = userRepository.getOne(username);
 		if (userValidator.isUserCreated(requestedUser)) {
 			try {
-				saveForm.SaveMoney(requestedUser.getAccount());
+				Account account = saveForm.SaveMoney(requestedUser.getAccount());
+				accountRepository.save(account);
 				return ResponseEntity.ok().build();
 			} catch (TransferError error) {
 				return ResponseEntity.status(400).build();
@@ -93,7 +94,8 @@ public class FinancialController {
 		User requestedUser = userRepository.getOne(username);
 		if (userValidator.isUserCreated(requestedUser)) {
 			try {
-				redeemForm.RedeemMoney(requestedUser.getAccount());
+				Account account = redeemForm.RedeemMoney(requestedUser.getAccount());
+				accountRepository.save(account);
 				return ResponseEntity.ok().build();
 			} catch (TransferError error) {
 				return ResponseEntity.status(400).build();

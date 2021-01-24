@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.wind.banking.app.models.entity.account.customer.Telefone;
 
 @SpringBootTest
-public class TelefoneTest {
+public class TelefoneTests {
 
 	private Telefone telefone = new Telefone("numero", "ddd", "tipo");
 

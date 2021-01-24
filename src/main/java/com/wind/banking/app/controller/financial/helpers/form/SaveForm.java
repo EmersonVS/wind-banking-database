@@ -13,9 +13,8 @@ public class SaveForm {
 
 
 	public Account SaveMoney(Account account) throws TransferError {
-		MoneyOperationHelper moneyHelper = new MoneyOperationHelper();
 		try {
-			return moneyHelper.TransferMoneyBetweenBalances(account, "Conta corrente", this.value);
+			return MoneyOperationHelper.TransferMoneyBetweenBalances(account, "Conta corrente", this.value);
 		} catch (TransferError error) {
 			error.printStackTrace();
 			throw error;
