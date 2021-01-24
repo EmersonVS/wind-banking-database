@@ -35,7 +35,7 @@ public class AccountController {
 	@Autowired
 	private UserRepository userRepository;
 
-	@GetMapping("/info")
+	@GetMapping("/info ")
 	public ResponseEntity<AccountDTO> GetAccount(@RequestHeader("Authorization") String token) {
 		String username = tokenService.getUsername(token);
 		User requestedUser = userRepository.getOne(username);
