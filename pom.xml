@@ -15,7 +15,7 @@
 	<name>banking</name>
 	<description>Opposite of Stone</description>
 	<properties>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
@@ -59,6 +59,11 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+			</dependency>
 
 	</dependencies>
 
