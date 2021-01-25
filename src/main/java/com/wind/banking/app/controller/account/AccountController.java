@@ -22,6 +22,8 @@ import com.wind.banking.app.models.entity.account.customer.Telefone;
 import com.wind.banking.app.models.repository.UserRepository;
 import com.wind.banking.config.security.token.TokenService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/account")
 public class AccountController {
@@ -45,6 +47,7 @@ public class AccountController {
 		return ResponseEntity.status(404).build();
 	}
 
+	@ApiOperation("Create account")
 	@PostMapping("/create")
 	@Transactional
 	public ResponseEntity<?> GenerateToken(@RequestBody AccountForm accountForm, @RequestHeader("Authorization") String token) {
